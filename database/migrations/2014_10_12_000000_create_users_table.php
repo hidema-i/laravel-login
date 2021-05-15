@@ -15,11 +15,14 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            //nicknameに変更し、初期の255文字数を（何も入れない場合）100にする
+            $table->string('name', 100);
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            $table->tinyInteger('locked_flg')->default(0);
+            $table->integer('error_count')->unsigned()->default(0);
+            // $table->rememberToken();
             $table->timestamps();
         });
     }
